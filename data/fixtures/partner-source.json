@@ -1,0 +1,8 @@
+{
+  "id": "partner-town",
+  "url": "https://partner.example.org/data/sites/partner-town.json",
+  "homepage": "https://partner.example.org/",
+  "allowed_hosts": [
+    "partner.example.org"
+  ]
+}

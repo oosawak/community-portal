@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "schema": "static-site-feed/v1",
+  "schema_version": "1.1.0",
+  "site": {
+    "id": "partner-town",
+    "name": "架空の外部お便り",
+    "kind": "media",
+    "description": "外部サイト連携のサンプル"
+  },
+  "entries": [
+    {
+      "id": "partner-town:autumn-day",
+      "site_id": "partner-town",
+      "slug": "autumn-day",
+      "title": "秋の散歩道",
+      "summary": "外部サイトから届くサンプル記事です",
+      "category": "地域",
+      "date": "2026-10-23",
+      "type": "article",
+      "url": "https://partner.example.org/posts/autumn-day/",
+      "cover": {
+        "src": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoQABAAAkA4JaACdLoB+AADsAD+74kH/izkYjs83/wPy6cMQAAAAA==",
+        "alt": "秋の景色",
+        "mime": "image/webp"
+      },
+      "i18n": {
+        "en": {
+          "title": "Autumn walking route",
+          "summary": "An example story received from another static site"
+        }
+      }
+    }
+  ]
+}
