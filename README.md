@@ -1,6 +1,14 @@
 # まちのつながり — 分散型JSON統合ポータル
 
-**このリポジトリには4サイトのMarkdown原稿や店舗画像はありません。** 各サイトが公開する共通JSON v1.1を、ビルド時にHTTPSで取得・検証・統合します。
+**このリポジトリには各サイトのMarkdown原稿や店舗画像はありません。** 各サイトが公開する共通JSON v1.1を、ビルド時にHTTPSで取得・検証・統合します。
+
+## 現在の運用（自動化済み）
+
+- 公開ポータル: https://oosawak.github.io/community-portal/
+- 接続中のサイト（5件）: haru no tane bakery（`haru-no-tane-bakery`）、みどり野町（`midorino-town`）、果実日和（`kajitsu-biyori`）、山形グルメ案内（`yamagata-gourmet`）、よむきく（`MdYomuKiku`）
+- GitHub Actions「Update portal from site feeds」が **6時間ごと**（および接続設定・スクリプトの変更時）に、各サイトのフィードを取得・検証・統合し、生成物（`docs/data/portal.json`、`preview.html`）をbotがcommitします。手動実行も可能です。
+- GitHub Pagesは `main` ブランチの `/docs` から配信しています（Source = Deploy from a branch）。
+- 下記「最初の公開手順」は配布テンプレート由来の一般手順であり、このリポジトリの現在の運用とは異なります。
 
 ## 最初の公開手順
 
@@ -21,9 +29,9 @@ git push -u origin main
 
 > `<OWNER>` と `<REPOSITORY>` は自分のGitHub情報へ置換します。標準の公開URLは `https://OWNER.github.io/REPOSITORY/` です。個人トップの `OWNER.github.io` リポジトリでは末尾パスを付けません。非公開リポジトリでのPages公開可否はプランに依存します。
 
-## 4サイトと接続する
+## サイトと接続する
 
-**先に4つの独立サイトをGitHub Pagesで公開**してください。その後、このポータル側で次を実行します。
+**先に各独立サイトをGitHub Pagesで公開**してください。その後、このポータル側で次を実行します。
 
 ```bash
 python scripts/configure_sources.py --owner OWNER
@@ -37,12 +45,14 @@ git push
 
 **注意**：`OWNER` はGitHubユーザー名に置き換えてください。各リポジトリ名は `haru-no-tane-bakery`、`midorino-town`、`kajitsu-biyori`、`yamagata-gourmet` をデフォルトとして想定しています。
 
+現在のデフォルトには小説サイト `MdYomuKiku`（id: `yomukiku`、`--yomukiku` で変更可）も含まれます。
+
 `data/sources.json` の各ソースには `id`、`homepage`、`url`（`data/sites/ID.json`）、`allowed_hosts` が入ります。カスタムドメインを使うサイトはこのファイル内のHTTPS URLとホスト名を実際のものへ変更してください。
 
 ## 更新タイミング
 
 - 各サイトのMarkdownコミット → **そのサイトのActions**が記事JSONを更新・Pages公開。
-- ポータルのActionsは**毎日 03:17 UTC** に各サイトを再取得。手動なら **Actions → Merge feeds and publish portal → Run workflow**。
+- ポータルのActions「Update portal from site feeds」は **6時間ごと**（cron `23 */6 * * *`）に各サイトを再取得。手動なら同じワークフローの **Run workflow** から。
 - 新しいソース設定をcommitすると即時ビルドを実行。ブラウザ上で他ドメインのJSONを直接fetchしないため、CORS設定は不要。
 - 取得に失敗したサイトについてはActions Cacheの**検証済み直近データ**にフォールバックします（キャッシュが未保存の場合は表示対象から外れます）。
 
@@ -64,6 +74,6 @@ python -m http.server 8000 --directory dist
 - 管理者が明示的に許可したHTTPSホストのみ取得。記事URLも許可ホストに限定。
 - JSON検証は `scripts/merge_feeds.py` に実装。HTMLやMarkdownは受け付けず、Base64 WebPのみ許可。
 - リダイレクトを拒否。1フィード4MB、記事100件、カバー画像150KB等の上限を設定。
-- GitHub Actionsは読み取り・Pages公開権限を別ジョブに分離。
+- GitHub Actionsの権限は、このリポジトリの contents の読み書きのみに限定しています。Pages公開はブランチ配信が担います。
 - GitHubの実公開・外部サイトとの連携は**各リポジトリをpushしてから要確認**です。
 - 詳細は `docs/FEED_SPEC_V1_1.md` と `docs/SECURITY_HARDENING.md` を参照。
