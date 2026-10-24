@@ -1,8 +1,36 @@
 {
   "sources": [
-    "https://oosawak.github.io/haru-no-tane-bakery/",
-    "https://oosawak.github.io/kajitsu-biyori/",
-    "https://oosawak.github.io/midorino-town/",
-    "https://oosawak.github.io/yamagata-gourmet/",
+    {
+      "id": "bakery",
+      "homepage": "https://oosawak.github.io/haru-no-tane-bakery/",
+      "url": "https://oosawak.github.io/haru-no-tane-bakery/data/sites/bakery.json",
+      "allowed_hosts": [
+        "oosawak.github.io"
+      ]
+    },
+    {
+      "id": "town",
+      "homepage": "https://oosawak.github.io/midorino-town/",
+      "url": "https://oosawak.github.io/midorino-town/data/sites/town.json",
+      "allowed_hosts": [
+        "oosawak.github.io"
+      ]
+    },
+    {
+      "id": "fruit",
+      "homepage": "https://oosawak.github.io/kajitsu-biyori/",
+      "url": "https://oosawak.github.io/kajitsu-biyori/data/sites/fruit.json",
+      "allowed_hosts": [
+        "oosawak.github.io"
+      ]
+    },
+    {
+      "id": "gourmet",
+      "homepage": "https://oosawak.github.io/yamagata-gourmet/",
+      "url": "https://oosawak.github.io/yamagata-gourmet/data/sites/gourmet.json",
+      "allowed_hosts": [
+        "oosawak.github.io"
+      ]
+    }
   ]
 }
