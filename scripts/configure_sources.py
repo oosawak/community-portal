@@ -9,12 +9,13 @@ parser.add_argument('--bakery',default='haru-no-tane-bakery')
 parser.add_argument('--town',default='midorino-town')
 parser.add_argument('--fruit',default='kajitsu-biyori')
 parser.add_argument('--gourmet',default='yamagata-gourmet')
+parser.add_argument('--yomukiku',default='MdYomuKiku')
 args=parser.parse_args()
 owner=args.owner.lower()
 if not re.fullmatch(r'[a-z\d-]{1,39}',owner) or owner[0]=='-' or owner[-1]=='-':
     parser.error('Invalid GitHub owner')
 results=[]
-for sid in ('bakery','town','fruit','gourmet'):
+for sid in ('bakery','town','fruit','gourmet','yomukiku'):
     repo=getattr(args,sid)
     if not re.fullmatch(r'[A-Za-z\d_.-]+',repo):parser.error('Invalid repo name: '+repo)
     path=f'/{repo}/' if repo.lower()!=owner+'.github.io' else '/'

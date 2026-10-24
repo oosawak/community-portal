@@ -31,6 +31,14 @@
       "allowed_hosts": [
         "oosawak.github.io"
       ]
+    },
+    {
+      "id": "yomukiku",
+      "homepage": "https://oosawak.github.io/MdYomuKiku/",
+      "url": "https://oosawak.github.io/MdYomuKiku/data/sites/yomukiku.json",
+      "allowed_hosts": [
+        "oosawak.github.io"
+      ]
     }
   ]
 }
