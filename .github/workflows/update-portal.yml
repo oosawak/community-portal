@@ -57,6 +57,8 @@ jobs:
           cp dist/preview.html preview.html
           cp dist/preview.html docs/preview.html
           rsync -a dist/assets/ docs/assets/
+          mkdir -p docs/en
+          cp dist/en/index.html docs/en/index.html
       - name: Commit generated changes
         run: |
           git add -A docs preview.html
